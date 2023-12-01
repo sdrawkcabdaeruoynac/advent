@@ -13,24 +13,19 @@ numbers = {
    "nine": '9',
 }
 
+def getItemFromList(pos,list):
+   if len(list[pos]) > 1:
+      item = numbers.get(match[pos])
+   else:
+      item = match[pos]
+   return item
+
 sum = 0
 
 for y in text:
    match = re.findall(r"[0-9]|one|two|three|four|five|six|seven|eight|nine",y)
 
-   """check the first postion"""
-   if len(match[0]) > 1:
-      digit_one_str = numbers.get(match[0])
-   else:
-      digit_one_str = match[0]
-
-   """check last position"""
-   if len(match[len(match) - 1]) > 1:
-      digit_two_str = numbers.get(match[len(match) - 1])
-   else:
-      digit_two_str = match[len(match) - 1]
-
-   final = digit_one_str + digit_two_str
+   final = getItemFromList(0,match) + getItemFromList(len(match) - 1,match)
 
    sum = sum + int(final)
 
