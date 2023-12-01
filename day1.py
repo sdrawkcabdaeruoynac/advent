@@ -2,9 +2,9 @@ import re
 
 def getItemFromList(pos,list):
    if len(list[pos]) > 1:
-      item = numbers.get(match[pos])
+      item = numbers.get(list[pos])
    else:
-      item = match[pos]
+      item = list[pos]
    return item
 
 """ -------------------------------------- """
