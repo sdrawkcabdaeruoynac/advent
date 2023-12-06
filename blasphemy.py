@@ -41,14 +41,13 @@ for item in records:
    for a_set in game_sets:
       split_sets_evenmore = re.findall(r"\d+|red|blue|green", a_set)
 
-      while split_sets_evenmore:
+      while split_sets_evenmore and bad_set != True:
 
          color = split_sets_evenmore.pop()
          value = int(split_sets_evenmore.pop())
 
          if int(color_checker[color]) < value:
             bad_set = True
-            break
 
       if bad_set == True:
          break
