@@ -1,0 +1,41 @@
+import ply.lex as lex
+
+# Token definition
+tokens = (
+    'GAME',
+    'NUMBER',
+    'COLOR',
+    'SEPARATOR',
+    'NEWLINE',
+)
+
+# Regular expressions for tokens
+t_GAME = r'Game\s\d+'
+t_NUMBER = r'\d+'
+t_COLOR = r'red|blue|green'
+t_SEPARATOR = r'[:;,]'
+t_NEWLINE = r'\n'
+
+# Ignored characters (whitespace)
+t_ignore = ' \t'
+
+# Error handling rule
+def t_error(t):
+    print(f"Illegal character '{t.value[0]}'")
+    t.lexer.skip(1)
+
+# Build the lexer
+lexer = lex.lex()
+
+# Test string
+input_string = "Game 1: 4 red, 5 blue, 9 green; 7 green, 7 blue, 3 red; 16 red, 7 blue, 3 green; 11 green, 11 blue, 6 red; 12 red, 14 blue"
+
+# Give the lexer the input string
+lexer.input(input_string)
+
+# Print tokens in columns
+print("{:<10} {:<10}".format("Token", "Value"))
+print("="*20)
+
+for token in lexer:
+    print("{:<10} {:<10}".format(token.type, token.value))
