@@ -30,21 +30,19 @@ for y in text:
 powerSum = 0
 for item in records:
 
-   bad_set = False
    game_sets = item["SETS"]
 
    for a_set in game_sets:
 
       split_sets_evenmore = re.findall(r"\d+|red|blue|green", a_set)
 
-      while split_sets_evenmore and bad_set != True:
+      while split_sets_evenmore:
 
          color = split_sets_evenmore.pop()
          value = int(split_sets_evenmore.pop())
 
          if color_checker[color] < value:
             color_checker[color] = value
-         print(item["GAME"],color_checker)
 
    powerSum = powerSum + color_checker["red"] * color_checker["blue"] * color_checker["green"]
    color_checker["red"] = color_checker["blue"] = color_checker["green"] = 0
