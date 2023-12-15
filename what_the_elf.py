@@ -1,7 +1,6 @@
 import part
 # any number adjacent or diagonal to a number will be a part number
 
-
 def main():
 
     item_dictionary = part.ItemDictionary()
@@ -9,7 +8,6 @@ def main():
     with open("/Users/zen/desktop/adventText.txt") as text:
         lines = text.readlines() # get all the lines from text
 
-    item_dictionary.set_row_and_columns(len(lines), len(lines[0]) - 1)
     item_dictionary.generate(lines)
 
     sum = 0
@@ -23,6 +21,6 @@ def main():
 
     print(sum)
 
+
 if __name__ == "__main__":
     main()
-
