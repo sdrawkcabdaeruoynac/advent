@@ -1,0 +1,45 @@
+import part
+import re
+
+def calculateScore(matches) -> int:
+   if matches == 0:
+       return 0
+   else:
+       return pow(2,matches - 1)
+
+
+def main():
+    card = {
+        'game': int(),
+        "winning_numbers": list(),
+        "numbers": list(),
+        "score": int()
+    }
+
+    scratchers = []
+
+    with open("/Users/zen/desktop/adventText.txt") as text:
+        lines = text.readlines()  # get all the lines from text
+
+    for line in lines:
+        line = re.split(r"[:|\n]", line)
+        card['game'] = line[0]
+        card['winning_numbers'] = re.findall(r"[0-9]+", line[1])
+        card['numbers'] = re.findall(r"[0-9]+", line[2])
+        scratchers.append(card.copy())
+
+    matches = 0
+    sum = 0
+    for card in scratchers:
+        for x in card['numbers']:
+            for y in card['winning_numbers']:
+                if x == y:
+                    matches += 1
+        sum += calculateScore(matches)
+        matches = 0
+
+    print(sum)
+
+
+if __name__ == "__main__":
+    main()
