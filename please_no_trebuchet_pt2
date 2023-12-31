@@ -1,0 +1,66 @@
+import scratcher as s
+import re
+
+def calculateScore(matches) -> int:
+   if matches == 0:
+       return 0
+   else:
+       return pow(2,matches - 1)
+
+def add_lists(list1=list, list2=list):
+    for x in list2:
+        list1.append(x)
+
+def main():
+
+    cards = []
+    instances = {}
+
+    with open("/Users/zen/desktop/adventText.txt") as text:
+        lines = text.readlines()  # get all the lines from text
+
+    for line in lines:
+
+        line = re.split(r"[:|\n]", line)
+
+        card = s.Scratcher()
+
+        number = re.findall(r"[0-9]+", line[0])
+        card.scratcher["game"] = int(number[0])
+        instances[str(number[0])] = 0
+
+        card.scratcher['winning_numbers'] = re.findall(r"[0-9]+", line[1])
+        card.scratcher['numbers'] = re.findall(r"[0-9]+", line[2])
+        card.calculate_matches()
+        card.calculate_copies()
+        cards.append(card)
+
+    card_copies = {}
+    for x in cards:
+      card_copies[x.scratcher["game"]] = x.scratcher["copies"]
+
+    qCopies = []
+
+    for x in cards:
+
+        instances[str(x.scratcher["game"])] += 1
+
+        for copies in x.scratcher["copies"]:
+            instances[str(copies)] += 1
+            add_lists(qCopies,card_copies[copies])
+
+        while qCopies:
+            number = str(qCopies.pop())
+            instances[number] += 1
+            add_lists(qCopies, card_copies[int(number)])
+
+    sum = 0
+    for x in instances:
+       sum += int(instances[x])
+
+    print(sum)
+
+
+
+if __name__ == "__main__":
+    main()
